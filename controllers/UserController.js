@@ -18,12 +18,25 @@ class UserController {
     }
   };
 
-  getUserByIdController = (req, res) => {
-    const user = this.userService.getlUserServiceById();
-    res.status(200).send({
-      success: true,
-      message: user,
-    });
+  getUserByIdController = async (req, res) => {
+    try {
+      const user = await this.userService.getUserServiceById(req.params.id);
+      if (user === null) {
+        return res.status(404).send({
+          success: false,
+          message: "Usuario no encontrado",
+        });
+      }
+      res.status(200).send({
+        success: true,
+        message: user,
+      });
+    } catch (error) {
+      res.status(400).send({
+        success: false,
+        message: error.message,
+      });
+    }
   };
 
   createUserController = async (req, res) => {
@@ -34,7 +47,6 @@ class UserController {
         mail,
         pass,
       });
-      console.log(`🚀 ~ UserController ~ createUserController= ~ user:`, user);
       res.status(201).send({
         success: true,
         message: user,

@@ -1,14 +1,13 @@
 import { Router } from "express";
 import UserController from "../controllers/userController.js";
+import validatePost from "../validations/userValidator.js";
 
 const userController = new UserController();
-
 const userRouter = Router();
-
 
 userRouter.get("/", userController.getAllUserController);
 userRouter.get("/:id", userController.getUserByIdController);
-userRouter.post("/", userController.createUserController);
+userRouter.post("/", validatePost, userController.createUserController);
 // userRouter.put("/:id", (req, res) => {
 //   res.status(200).send("update router");
 // });

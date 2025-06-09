@@ -11,8 +11,12 @@ class UserService {
     });
     return users;
   };
-  getlUserServiceById = () => {
-    return "Get all users Services";
+  getUserServiceById = async (id) => {
+    let user = await User.findByPk(id, {
+      attributes: ["id", "name", "mail", "RoleId"],
+      raw:"true"
+    })
+    return user;
   };
 
   createUserService = async (data) => {
