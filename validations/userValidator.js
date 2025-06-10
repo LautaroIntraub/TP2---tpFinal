@@ -6,4 +6,5 @@ const validatePost = (req, res, next) => {
     next();
   };
 
+  
 export default validatePost;
