@@ -1,3 +1,4 @@
+
 const validatePost = (req, res, next) => {
   const { titulo, autor, editorial, año, genero } = req.body;
   if (
