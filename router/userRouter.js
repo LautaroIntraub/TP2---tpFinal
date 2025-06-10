@@ -8,6 +8,7 @@ const userRouter = Router();
 userRouter.get("/", userController.getAllUserController);
 userRouter.get("/:id", userController.getUserByIdController);
 userRouter.post("/", validatePost, userController.createUserController);
+
 // userRouter.put("/:id", (req, res) => {
 //   res.status(200).send("update router");
 // });
