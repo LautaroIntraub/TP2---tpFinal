@@ -38,6 +38,7 @@ class LibroController {
       });
     }
   };
+  
 
   createLibroController = async (req, res) => {
     try {
@@ -59,6 +60,54 @@ class LibroController {
       });
     }
   };
+}
+
+
+updateLibroController = async (req, res) => {
+  try {
+    const { titulo, autor, editorial, anio } = req.body;
+    const libro = await this.userService.updateLibroService(
+      req.params.id,
+      { titulo, autor, editorial, anio }
+    );
+    if (libro === null) {
+      return res.status(404).send({
+        success: false,
+        message: "Libro no encontrado",
+      });
+    }
+    res.status(200).send({
+      success: true,
+      message: libro,
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+deleteLibroController = async (req, res) => {
+  try {
+    const libro = await this.userService.deleteLibroService(req.params.id);
+    if (libro === null) {
+      return res.status(404).send({
+        success: false,
+        message: "Libro no encontrado",
+      });
+    }
+    res.status(200).send({
+      success: true,
+      message: "Libro eliminado correctamente",
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      message: error.message,
+    });
+  }
 }
 
 export default LibroController;
