@@ -8,6 +8,10 @@ const userRouter = Router();
 userRouter.get("/", userController.getAllUserController);
 userRouter.get("/:id", userController.getUserByIdController);
 userRouter.post("/", validatePost, userController.createUserController);
+userRouter.put("/:id", userController.updateUserController); //faltan agregarlos en el controller
+userRouter.delete("/:id", userController.deleteUserController);//faltan agregarlos en el controller
+
+
 
 // userRouter.put("/:id", (req, res) => {
 //   res.status(200).send("update router");
