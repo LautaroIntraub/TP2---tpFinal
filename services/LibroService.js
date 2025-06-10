@@ -9,7 +9,8 @@ class LibrosService {
         });
         return libros;
     }}
-
+  
+    
     getLibroServiceById = async (id ) => {
         let libro = await User.findByPk(id, {
             attributes: ["id", "nombre", "autor", "editorial", "año", "genero"],
