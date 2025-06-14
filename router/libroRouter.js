@@ -5,7 +5,7 @@ import {validatePost, validatePut, validateDelete} from "../validations/libroVal
 const libroController = new LibroController();
 const libroRouter = Router();
 
-libroRouter.get("/", libroController.getAllLibroController);
+libroRouter.get("/libros", libroController.getAllLibroController);
 libroRouter.get("/:id", libroController.getLibroByIdController);
 libroRouter.post("/", validatePost, libroController.createLibroController);
 libroRouter.put("/:id", validatePut, libroController.updateLibroController);
