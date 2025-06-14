@@ -18,6 +18,7 @@ class UserController {
     }
   };
 
+  
   getUserByIdController = async (req, res) => {
     try {
       const user = await this.userService.getUserServiceById(req.params.id);
@@ -50,6 +51,53 @@ class UserController {
       res.status(201).send({
         success: true,
         message: user,
+      });
+    } catch (error) {
+      res.status(400).send({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
+  updateUserController = async (req, res) => {
+    try {
+      const { name, mail, pass } = req.body;
+      const user = await this.userService.updateUserService(req.params.id, {
+        name,
+        mail,
+        pass,
+      });
+      if (user === null) {
+        return res.status(404).send({
+          success: false,
+          message: "Usuario no encontrado",
+        });
+      }
+      res.status(200).send({
+        success: true,
+        message: user,
+      });
+    } catch (error) {
+      res.status(400).send({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
+  deleteUserController = async (req, res) => {
+    try {
+      const user = await this.userService.deleteUserService(req.params.id);
+      if (user === null) {
+        return res.status(404).send({
+          success: false,
+          message: "Usuario no encontrado",
+        });
+      }
+      res.status(200).send({
+        success: true,
+        message: "Usuario eliminado correctamente",
       });
     } catch (error) {
       res.status(400).send({
