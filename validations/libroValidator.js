@@ -36,7 +36,7 @@ const validatePut = (req, res, next) => {
   next();
 };
 
-validateDelete = (req, res, next) => {
+const validateDelete = (req, res, next) => {
   const { id } = req.params;
   if (!id || isNaN(id)) {
     return res.status(400).json({
