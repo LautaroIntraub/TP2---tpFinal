@@ -41,12 +41,13 @@ class LibroController {
 
   createLibroController = async (req, res) => {
     try {
-      const { titulo, autor, editorial, anio } = req.body;
+      const { titulo, autor, editorial, anio, genero } = req.body;
       const libro = await this.libroService.createLibroService({
         titulo,
         autor,
         editorial,
         anio,
+        genero,
       });
       res.status(201).send({
         success: true,
