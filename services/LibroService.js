@@ -18,12 +18,14 @@ class LibrosService {
   };
 
   createLibroService = async (data) => {
-    try {
-      const libro = await Libro.create(data);
-      return libro.titulo;
-    } catch (error) {
-      throw new Error("No se pudo crear el libro: " + error.message);
+    const libroExistente = await Libro.findOne({
+      where: { titulo: data.titulo },
+    });
+    if (libroExistente) {
+      throw new Error("Ya existe un libro con ese título.");
     }
+    const libro = await Libro.create(data);
+    return libro;
   };
 
   updateLibroService = async (id, data) => {
