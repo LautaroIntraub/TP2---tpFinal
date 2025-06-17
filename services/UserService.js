@@ -25,16 +25,16 @@ class UserService {
   };
 
   updateUserService = async (id, data) => {
-    const user = await User.findByPk(id);
-    if (!user) return null;
-    await user.update(data);
+    const user = await User.update(data, {
+      where: { id },
+    });
     return user;
   };
 
   deleteUserService = async (id) => {
-    const user = await User.findByPk(id);
-    if (!user) return null;
-    await user.destroy();
+    const user = await User.destroy({
+      where: { id },
+    });
     return user;
   };
 }
