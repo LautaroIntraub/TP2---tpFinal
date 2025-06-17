@@ -18,8 +18,12 @@ class LibrosService {
   };
 
   createLibroService = async (data) => {
-    const libro = await Libro.create(data);
-    return libro.titulo;
+    try {
+      const libro = await Libro.create(data);
+      return libro.titulo;
+    } catch (error) {
+      throw new Error("No se pudo crear el libro: " + error.message);
+    }
   };
 
   updateLibroService = async (id, data) => {
