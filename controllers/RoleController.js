@@ -81,13 +81,17 @@ class RoleController {
 
   deleteRoleController = async (req, res) => {
     try {
-      const role = await this.roleService.deleteRoleService(req.params.id);
-      if (role === null) {
+      const deletedCount = await this.roleService.deleteRoleService(
+        req.params.id
+      );
+
+      if (deletedCount === 0) {
         return res.status(404).send({
           success: false,
-          message: "Rol no encontrado",
+          message: "Rol no encontrado o ya fue eliminado.",
         });
       }
+
       res.status(200).send({
         success: true,
         message: "Rol eliminado correctamente",
