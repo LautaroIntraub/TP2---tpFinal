@@ -1,4 +1,4 @@
-# 📚 Gestión de Libros y Usuarios
+# 📚 Gestión de Biblioteca
 
 Este proyecto es una API RESTful desarrollada con Node.js, Express y Sequelize, que permite gestionar usuarios, libros y roles.
 
