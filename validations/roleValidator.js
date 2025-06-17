@@ -1,5 +1,3 @@
-import { validate } from "uuid";
-
 const validatePost = (req, res, next) => {
   const { roleName } = req.body;
 
@@ -27,9 +25,9 @@ const validatePut = (req, res, next) => {
 const validateDelete = (req, res, next) => {
   const { id } = req.params;
 
-  if (!id || !validate(id)) {
+  if (!id || isNaN(id)) {
     return res.status(400).json({
-      mensaje: "El ID del rol es obligatorio y debe ser un UUID válido.",
+      mensaje: "El ID del rol es obligatorio y debe ser un número válido.",
     });
   }
 
