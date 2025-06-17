@@ -27,17 +27,19 @@ class RoleService {
   };
 
   updateRoleService = async (id, data) => {
-    const role = await Role.findByPk(id);
-    if (!role) return null;
-    await role.update(data);
+    const role = await Role.update(data, {
+      where: { id },
+    });
+    if (role[0] === 0) {
+      throw new Error("No se encontró un rol con ese ID");
+    }
     return role;
   };
 
   deleteRoleService = async (id) => {
-    const role = await Role.findByPk(id);
-    if (!role) return null;
-
-    await role.destroy();
+    const role = await Role.destroy({
+      where: { id },
+    });
     return role;
   };
 }
