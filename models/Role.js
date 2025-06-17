@@ -7,11 +7,13 @@ Role.init(
   {
     roleName: {
       type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
     },
   },
   {
     sequelize: connection,
-    modelName: "Role",
+    modelName: "Roles",
   }
 );
 

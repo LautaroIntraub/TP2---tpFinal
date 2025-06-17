@@ -8,10 +8,10 @@ Libro.init(
     titulo: DataTypes.STRING,
     autor: DataTypes.STRING,
     editorial: DataTypes.STRING,
-    año: {
+    anio: {
       type: DataTypes.INTEGER,
       validate: {
-        esInt: true,
+        isInt: true,
         min: 1450,
         max: new Date().getFullYear(),
       },
@@ -20,9 +20,8 @@ Libro.init(
   },
   {
     sequelize: connection,
-    modelName: "Libro",
+    modelName: "Libros",
   }
 );
-
 
 export default Libro;

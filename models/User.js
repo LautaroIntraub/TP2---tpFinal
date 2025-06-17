@@ -11,20 +11,16 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      mail: true,
+      isMail: true,
     },
     pass: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    RoleId: {
-      type: DataTypes.INTEGER,
-      defaultValue: 1,
-    },
   },
   {
     sequelize: connection,
-    modelName: "User",
+    modelName: "Users",
   }
 );
 

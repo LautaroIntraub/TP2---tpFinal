@@ -14,14 +14,28 @@ class UserService {
   getUserServiceById = async (id) => {
     let user = await User.findByPk(id, {
       attributes: ["id", "name", "mail", "RoleId"],
-      raw:"true"
-    })
+      raw: true,
+    });
     return user;
   };
 
   createUserService = async (data) => {
     const user = await User.create(data);
     return user.name;
+  };
+
+  updateUserService = async (id, data) => {
+    const user = await User.findByPk(id);
+    if (!user) return null;
+    await user.update(data);
+    return user;
+  };
+
+  deleteUserService = async (id) => {
+    const user = await User.findByPk(id);
+    if (!user) return null;
+    await user.destroy();
+    return user;
   };
 }
 

@@ -87,25 +87,27 @@ class UserController {
   };
 
   deleteUserController = async (req, res) => {
-    try {
-      const user = await this.userService.deleteUserService(req.params.id);
-      if (user === null) {
-        return res.status(404).send({
-          success: false,
-          message: "Usuario no encontrado",
-        });
-      }
-      res.status(200).send({
-        success: true,
-        message: "Usuario eliminado correctamente",
-      });
-    } catch (error) {
-      res.status(400).send({
+  try {
+    const result = await this.userService.deleteUserService(req.params.id);
+
+    if (result === 0) {
+      return res.status(404).json({
         success: false,
-        message: error.message,
+        message: "Usuario no encontrado",
       });
     }
-  };
+
+    res.status(200).json({
+      success: true,
+      message: "Usuario eliminado correctamente",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 }
 
 export default UserController;
