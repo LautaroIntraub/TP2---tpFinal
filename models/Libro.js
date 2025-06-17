@@ -5,7 +5,15 @@ class Libro extends Model {}
 
 Libro.init(
   {
-    titulo: DataTypes.STRING,
+    titulo: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notEmpty: true,
+        len: [3, 130],
+      },
+    },
     autor: DataTypes.STRING,
     editorial: DataTypes.STRING,
     anio: {
@@ -16,7 +24,11 @@ Libro.init(
         max: new Date().getFullYear(),
       },
     },
-    genero: DataTypes.STRING,
+    genero: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: { notEmpty: true },
+    },
   },
   {
     sequelize: connection,
