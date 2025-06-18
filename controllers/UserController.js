@@ -130,10 +130,12 @@ class UserController {
   me = async (req, res) => {
     try {
       const { token } = req.cookies;
-      const user = await this.userService.me(token);
+      const user = await this.userService.me(token.token);
+      console.log(user); 
+      
       res.status(200).send({
         success: true,
-        message: "Usuario me",
+        message: user,
       });
     } catch (error) {
       res.status(400).send({

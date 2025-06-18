@@ -1,5 +1,5 @@
 import { User, Role } from "../models/index.js";
-import { gentoken } from "../utils/token.js";
+import { gentoken, verifyToken } from "../utils/token.js";
 
 class UserService {
   getAllUserService = async () => {
@@ -65,6 +65,8 @@ class UserService {
 
   me = async (token) => {
     //to do
+    let data = verifyToken(token)
+    return data
   };
 }
 
