@@ -1,9 +1,10 @@
 import { Sequelize } from "sequelize";
+import { env } from "process";
 
-const connection = new Sequelize("martes", "root", "", {
-  host: "localhost",
-  dialect: "mysql",
-  port: "3306",
+const connection = new Sequelize(env.DB_NAME, env.DB_USER, env.DB_PASS, {
+  host: env.DB_HOST,
+  dialect: env.DB_DIALECT,
+  port: env.DB_PORT,
 });
 
 try {
