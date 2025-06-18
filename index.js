@@ -4,6 +4,7 @@ import libroRouter from "./router/libroRouter.js";
 import roleRouter from "./router/roleRouter.js";
 import connection from "./connection/connection.js";
 import { SERVER_PORT } from "./Config/config.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/users", userRouter);
 app.use("/libros", libroRouter);
 app.use("/roles", roleRouter);
+app.use(cookieParser());
 
 await connection.sync({ force: false });
 

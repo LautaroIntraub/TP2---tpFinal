@@ -2,7 +2,12 @@ import { DataTypes, Model } from "sequelize";
 import connection from "../connection/connection.js";
 import bcrypt from "bcrypt";
 
-class User extends Model {}
+class User extends Model {
+  static compare = async (paintextPassword, hash) => {
+    const comparePass = await bcrypt.compare(paintextPassword, hash);
+    return comparePass;
+  };
+}
 
 User.init(
   {
@@ -16,6 +21,10 @@ User.init(
     pass: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    RoleId: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
     },
   },
   {

@@ -1,4 +1,5 @@
 import { User, Role } from "../models/index.js";
+import { gentoken } from "../utils/token.js";
 
 class UserService {
   getAllUserService = async () => {
@@ -36,6 +37,34 @@ class UserService {
       where: { id },
     });
     return user;
+  };
+
+  login = async (data) => {
+    const { mail, pass } = data;
+    const user = await User.findOne({
+      where: {
+        mail,
+      },
+    });
+    if (!user) throw new Error("User no encontrado");
+    const comparePass = await User.compare(pass, user.pass);
+    if (!comparePass) throw new Error("User no encontrado");
+
+    const payload = {
+      id: user.id,
+      mail: user.mail,
+      role: user.RoleId,
+    };
+
+    const token = gentoken(payload);
+
+    return {
+      token,
+    };
+  };
+
+  me = async (token) => {
+    //to do
   };
 }
 
