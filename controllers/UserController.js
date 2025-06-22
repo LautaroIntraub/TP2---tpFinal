@@ -128,21 +128,10 @@ class UserController {
   };
 
   me = async (req, res) => {
-    try {
-      const { token } = req.cookies;
-      const user = await this.userService.me(token.token);
-      console.log(user); 
-      
-      res.status(200).send({
-        success: true,
-        message: user,
-      });
-    } catch (error) {
-      res.status(400).send({
-        success: false,
-        message: error.message,
-      });
-    }
+    res.status(200).json({
+      mensaje: "Usuario autenticado",
+      user: req.user,
+    });
   };
 }
 

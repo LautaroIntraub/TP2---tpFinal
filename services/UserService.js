@@ -58,15 +58,15 @@ class UserService {
 
     const token = gentoken(payload);
 
-    return {
-      token,
-    };
+    return token;
   };
 
-  me = async (token) => {
-    //to do
-    let data = verifyToken(token)
-    return data
+  me = async (req, res) => {
+    try {
+      return res.status(200).json(req.user);
+    } catch (error) {
+      return res.status(500).json({ mensaje: "Error al obtener usuario" });
+    }
   };
 }
 

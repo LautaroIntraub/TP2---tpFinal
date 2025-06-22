@@ -1,18 +1,20 @@
 import { verifyToken } from "../utils/token.js";
 
 const validateToken = (req, res, next) => {
-  const { token } = req.cookies;
+  const token = req.cookies.token;
+
   if (!token) {
     return res.status(400).json({ mensaje: "Token inexistente" });
   }
+
   try {
-    if (!verifyToken(token.token)) {
-      return res.status(400).json({ mensaje: "Token invalido" });
-    }
+    const userData = verifyToken(token);
+    req.user = userData;
+    next();
   } catch (error) {
-    console.log("aasd");
+    console.error("ERROR AL VERIFICAR TOKEN:", error.message);
+    return res.status(401).json({ mensaje: "Token inválido" });
   }
-  next();
 };
 
 export default validateToken;
