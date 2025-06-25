@@ -1,6 +1,6 @@
 # 📚 Gestión de Biblioteca
 
-Este proyecto es una API RESTful desarrollada con Node.js, Express y Sequelize, que permite gestionar usuarios, libros y roles.
+Este proyecto es una API RESTful desarrollada con **Node.js**, **Express** y **Sequelize**, que permite gestionar usuarios, libros y roles dentro de una biblioteca. 
 
 ## 🚀 Requisitos
 
@@ -56,3 +56,10 @@ Nodemon (modo desarrollo)
 ✅ Validaciones
 Todas las rutas POST, PUT y DELETE están validadas para garantizar integridad de datos.
 ```
+
+📌 Notas
+Podés probar los endpoints con herramientas como Postman o Insomnia.
+
+Asegurate de tener MySQL corriendo y de que las credenciales estén correctamente configuradas en el .env.
+
+La conexión con la base de datos se realiza automáticamente al iniciar el servidor.
