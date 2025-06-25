@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { SECRET } from "../Config/config.js";
 
 export const gentoken = (data) => {
-  return jwt.sign({ data }, SECRET, { expiresIn: "20s" });
+  return jwt.sign({ data }, SECRET, { expiresIn: "1d" });
 };
 
 export const verifyToken = (token) => {

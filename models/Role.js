@@ -9,6 +9,11 @@ Role.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        notEmpty: true,
+        len: [3, 30],
+        is: /^[A-Za-zÀ-ÿ\s]+$/i,
+      },
     },
   },
   {

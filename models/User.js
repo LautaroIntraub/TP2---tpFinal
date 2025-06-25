@@ -11,20 +11,39 @@ class User extends Model {
 
 User.init(
   {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [2, 50],
+      },
+    },
     mail: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      isMail: true,
+      validate: {
+        isEmail: true,
+        notEmpty: true,
+      },
     },
     pass: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [8, 20],
+      },
     },
     RoleId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       defaultValue: 1,
+      validate: {
+        isInt: true,
+        min: 1,
+      },
     },
   },
   {
@@ -35,7 +54,6 @@ User.init(
 
 User.beforeCreate(async (user) => {
   const salt = await bcrypt.genSalt(10);
-  // console.log(`🚀 ~ User.beforeCreate ~ salt:`, salt);
   const hash = await bcrypt.hash(user.pass, salt);
   user.pass = hash;
 });

@@ -1,4 +1,3 @@
-import res from "express/lib/response.js";
 import UserService from "../services/UserService.js";
 
 class UserController {

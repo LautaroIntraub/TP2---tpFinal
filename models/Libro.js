@@ -3,6 +3,8 @@ import connection from "../connection/connection.js";
 
 class Libro extends Model {}
 
+const anioActual = new Date().getFullYear();
+
 Libro.init(
   {
     titulo: {
@@ -11,23 +13,39 @@ Libro.init(
       unique: true,
       validate: {
         notEmpty: true,
-        len: [3, 130],
+        len: [3, 100],
       },
     },
-    autor: DataTypes.STRING,
-    editorial: DataTypes.STRING,
+    autor: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [3, 100],
+      },
+    },
+    editorial: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [2, 100],
+      },
+    },
     anio: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       validate: {
         isInt: true,
         min: 1450,
-        max: new Date().getFullYear(),
+        max: anioActual,
       },
     },
     genero: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: { notEmpty: true },
+      validate: {
+        notEmpty: true,
+        len: [3, 50],
+      },
     },
   },
   {
