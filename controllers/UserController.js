@@ -61,18 +61,22 @@ class UserController {
 
   updateUserController = async (req, res) => {
     try {
-      const { name, mail, pass } = req.body;
+      const { name, mail, pass, RoleId } = req.body;
+
       const user = await this.userService.updateUserService(req.params.id, {
         name,
         mail,
         pass,
+        RoleId,
       });
+
       if (user === null) {
         return res.status(404).send({
           success: false,
           message: "Usuario no encontrado",
         });
       }
+
       res.status(200).send({
         success: true,
         message: user,
