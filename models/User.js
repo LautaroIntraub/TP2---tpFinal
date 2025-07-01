@@ -27,13 +27,15 @@ User.init(
         isEmail: true,
         notEmpty: true,
       },
+      set(value) {
+        this.setDataValue("mail", value.toLowerCase());
+      },
     },
     pass: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: [8, 20],
       },
     },
     RoleId: {
@@ -52,10 +54,12 @@ User.init(
   }
 );
 
-User.beforeCreate(async (user) => {
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(user.pass, salt);
-  user.pass = hash;
+User.beforeSave(async (user) => {
+  if (user.changed("pass")) {
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(user.pass, salt);
+    user.pass = hash;
+  }
 });
 
 export default User;

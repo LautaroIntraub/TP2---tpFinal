@@ -26,10 +26,26 @@ class UserService {
   };
 
   updateUserService = async (id, data) => {
-    const user = await User.update(data, {
-      where: { id },
-    });
-    return user;
+    const user = await User.findByPk(id);
+    if (!user) throw new Error("Usuario no encontrado");
+    if (data.name !== undefined) {
+      user.name = data.name;
+    }
+    if (data.mail !== undefined) {
+      user.mail = data.mail.toLowerCase();
+    }
+    if (data.pass !== undefined) {
+      if (data.pass.length < 8 || data.pass.length > 20) {
+        throw new Error("La contraseña debe tener entre 8 y 20 caracteres");
+      }
+      user.pass = data.pass;
+    }
+    if (data.RoleId !== undefined) {
+      user.RoleId = data.RoleId;
+    }
+    await user.save();
+    const { pass, ...userSafe } = user.toJSON();
+    return userSafe;
   };
 
   deleteUserService = async (id) => {
@@ -41,14 +57,17 @@ class UserService {
 
   login = async (data) => {
     const { mail, pass } = data;
+
     const user = await User.findOne({
       where: {
-        mail,
+        mail: mail.toLowerCase(),
       },
     });
-    if (!user) throw new Error("User no encontrado");
+
+    if (!user) throw new Error("Usuario no encontrado");
+
     const comparePass = await User.compare(pass, user.pass);
-    if (!comparePass) throw new Error("User no encontrado");
+    if (!comparePass) throw new Error("Contraseña incorrecta");
 
     const payload = {
       id: user.id,
